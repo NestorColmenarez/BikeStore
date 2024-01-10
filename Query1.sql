@@ -8,6 +8,7 @@ SELECT
 	SUM(ite.quantity * ite.list_price) AS revenue,
 	pro.product_name,
 	cat.category_name,
+	brd.brand_name,
 	sto.store_name,
 	CONCAT(sta.first_name, ' ', sta.last_name) AS sales_rep
 FROM sales.orders ord
@@ -19,6 +20,8 @@ JOIN production.products pro
 ON ite.product_id = pro.product_id
 JOIN production.categories cat
 ON pro.category_id = cat.category_id
+JOIN production.brands brd
+ON pro.brand_id = brd.brand_id
 JOIN sales.stores sto
 ON ord.store_id = sto.store_id
 JOIN sales.staffs sta
@@ -31,6 +34,7 @@ GROUP BY
 	ord.order_date,
 	pro.product_name,
 	cat.category_name,
+	brd.brand_name,
 	sto.store_name,
 	CONCAT(sta.first_name, ' ', sta.last_name)	
 ORDER BY order_id;
